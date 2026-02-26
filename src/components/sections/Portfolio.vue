@@ -34,7 +34,10 @@
           :data-aos-delay="index * 100"
         >
           <!-- Project Image -->
-          <div class="aspect-video overflow-hidden">
+          <div
+            class="aspect-video overflow-hidden cursor-pointer md:cursor-default"
+            @click="handleProjectClick(project)"
+          >
             <img 
               :src="project.image" 
               :alt="project.title" 
@@ -64,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { ExternalLink, Github } from 'lucide-vue-next'
 import FoodCourtBackend from '../../assets/images/FoodCourt_Backend.png'
 import NextPrimeHRMS from '../../assets/images/NextPrimeHRMS.png'
@@ -77,6 +80,29 @@ const props = defineProps({ isDark: Boolean })
 
 const tabs = ['All', 'Frontend-Project', 'Backend-Project', 'Landing Page-Project']
 const activeTab = ref('All')
+
+const isMobile = ref(false)
+
+const updateIsMobile = () => {
+  if (typeof window === 'undefined') return
+  isMobile.value = window.innerWidth < 768
+}
+
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateIsMobile)
+})
+
+const handleProjectClick = (project) => {
+  if (!isMobile.value) return
+  if (project.liveLink && project.liveLink !== '#') {
+    window.open(project.liveLink, '_blank')
+  }
+}
 
 const projects = [
   {

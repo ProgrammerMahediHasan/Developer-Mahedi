@@ -21,7 +21,7 @@
             Hire Me
           </a>
           <a
-            href="/src/assets/CV of Mahedi Hasan (Software Developer).pdf"
+            href="CV of Mahedi Hasan (Software Developer).pdf"
             target="_blank"
             class="px-8 py-4 border border-blue-600/40 hover:border-blue-500 font-semibold rounded-full transition-all hover:bg-blue-500/10"
             :class="isDark ? 'text-white' : 'text-black'"
